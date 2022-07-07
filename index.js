@@ -2,10 +2,6 @@ import 'react-native-gesture-handler';
 /**
  * @format
  */
-
-import { AppRegistry } from 'react-native';
-import App from './App';
-import { name as appName } from './app.json';
 import { LogBox } from "react-native";
 if (__DEV__) {
     const ignoreWarns = [
@@ -31,4 +27,20 @@ if (__DEV__) {
 
     LogBox.ignoreLogs(ignoreWarns);
 }
-AppRegistry.registerComponent(appName, () => App);
+import React from 'react';
+import { AppRegistry } from 'react-native';
+import App from './App';
+import { Provider as ReduxProvider } from 'react-redux';
+import { ConfigureStore } from '@Redux';
+import { name as appName } from './app.json';
+
+const store = ConfigureStore();
+
+const AppProvider = () => (
+    <ReduxProvider store={store}>
+        <App />
+    </ReduxProvider>
+)
+
+
+AppRegistry.registerComponent(appName, () => AppProvider);

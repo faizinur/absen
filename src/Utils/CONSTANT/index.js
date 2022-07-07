@@ -7,7 +7,7 @@ const GEO_WATCH = {
     forceRequestLocation: true,
 }
 
-const FENCING_RADIUS = 50;
+const FENCING_RADIUS = 5;
 
 export {
     FENCING_RADIUS,

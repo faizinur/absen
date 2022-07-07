@@ -1,0 +1,7 @@
+const SET_LOCATION = 'SET_LOCATION';
+const SET_DISTANCE = 'SET_DISTANCE';
+
+export {
+    SET_LOCATION,
+    SET_DISTANCE
+}
