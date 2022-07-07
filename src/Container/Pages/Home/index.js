@@ -12,8 +12,10 @@ export default memo(({ navigation: { replace } }) => {
     const _openCamera = () => refCameraModal.current?.toggle()
     useEffect(() => {
         log('MOUNT HOME');
-        _initFencing();
-        const watchID = Geolocation.watchPosition(_userFencing, null, CONSTANT.GEO_WATCH)
+        let watchID = null;
+        _initFencing().then(() => {
+            watchID = Geolocation.watchPosition(_userFencing, null, CONSTANT.GEO_WATCH)
+        });
         return () => {
             Geolocation.clearWatch(watchID);
             log('UNMOUNT HOME')
