@@ -3,7 +3,7 @@ import React, { useState, useCallback, forwardRef, useImperativeHandle, memo, us
 import { log } from '@Utils';
 import { RNCamera } from 'react-native-camera';
 import RNFS from 'react-native-fs';
-export default memo(forwardRef(({ location, onResult }, ref) => {
+export default memo(forwardRef(({ onResult }, ref) => {
     const refCamera = useRef(<RNCamera />);
     const [modalVisible, setModalVisible] = useState(false);
     useImperativeHandle(ref, () => ({
@@ -17,8 +17,7 @@ export default memo(forwardRef(({ location, onResult }, ref) => {
         try {
             const { uri, base64 } = await camera.takePictureAsync({ quality: 1, base64: true });
             RNFS.unlink(uri);
-            onResult({ base64 }, location)
-            toggle()
+            onResult({ base64 })
         } catch (err) {
             log(err)
             global?.showToast(`camera error : ${err}`, 10000, 'danger')

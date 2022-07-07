@@ -21,8 +21,11 @@ export default () => {
                     altitude,
                 },
             }
-            log(dataAbsen)
+
             global.showToast(JSON.stringify(dataAbsen))
+
+            return Promise.resolve(true);
+
             // From image to base64 string di node js
 
             // let buff = fs.readFileSync('stack-abuse-logo.png');
@@ -32,8 +35,7 @@ export default () => {
             // let buff = new Buffer(data, 'base64');
             // fs.writeFileSync('stack-abuse-logo-out.png', buff);
         } catch (err) {
-            log('_addAbsen Err', err)
-            global.showToast(JSON.stringify(err))
+            return Promise.reject(err);
         }
     }
     return {

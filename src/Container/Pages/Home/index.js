@@ -5,11 +5,21 @@ import { UseLocation, UseAbsen } from '@ViewModel';
 import Geolocation from 'react-native-geolocation-service';
 import { CameraModal } from '@Organisms';
 
-export default memo(({ navigation: { replace } }) => {
+export default memo(() => {
     const { location, distance, _initFencing, _userFencing } = UseLocation();
     const { _addAbsenMasuk } = UseAbsen();
     const refCameraModal = useRef(<CameraModal />)
-    const _openCamera = () => refCameraModal.current?.toggle()
+    const _toggleCamera = () => refCameraModal.current?.toggle();
+    const onAddAbsen = async (file) => {
+        try {
+            let absenResult = await _addAbsenMasuk(file, location);
+            if (absenResult == true) {
+                _toggleCamera()
+            }
+        } catch (err) {
+            global.showToast(JSON.stringify(err))
+        }
+    }
     useEffect(() => {
         log('MOUNT HOME');
         let watchID = null;
@@ -29,8 +39,8 @@ export default memo(({ navigation: { replace } }) => {
                 longitude: location?.coords?.longitude || 0,
                 altitude: location?.coords?.altitude || 0,
             }, null, 3)}</Text>
-            <Button title='camera' onPress={_openCamera} disabled={distance < CONSTANT.FENCING_RADIUS ? false : true} />
-            <CameraModal ref={refCameraModal} location={location} onResult={_addAbsenMasuk} />
+            <Button title='camera' onPress={_toggleCamera} disabled={distance < CONSTANT.FENCING_RADIUS ? false : true} />
+            <CameraModal ref={refCameraModal} onResult={onAddAbsen} />
         </View>
     )
 })
