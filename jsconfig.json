@@ -1,0 +1,42 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            //component
+            "@Atoms": [
+                "./src/Components/Atoms/*"
+            ],
+            "@Molecules": [
+                "./src/Components/Molecules/*"
+            ],
+            "@Organisms": [
+                "./src/Components/Organisms/*"
+            ],
+            //config
+            "@Model": [
+                "./src/Config/Model/*"
+            ],
+            "@ViewModel": [
+                "./src/Config/ViewModel/*"
+            ],
+            "@RootNavigation": [
+                "./src/Config/RootNavigation/*"
+            ],
+            //Container
+            "@Pages": [
+                "./src/Container/Pages/*"
+            ],
+            "@Templates": [
+                "./src/Container/Templates/*"
+            ],
+            //utils
+            "@Utils": [
+                "./src/Utils/*"
+            ],
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

@@ -1,0 +1,49 @@
+{
+  "name": "absenguru",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "emulator": "C: && ( CD C:/Users/eCentrix/AppData/Local/Android/Sdk/emulator/ && emulator -avd Pixel_2_API_30 )",
+    "kill": "adb -e emu kill",
+    "android": "react-native run-android",
+    "start": "react-native start --reset-cache",
+    "clean": "cd android && gradlew clean",
+    "uninstall": "adb uninstall com.absenguru",
+    "generate": "keytool -genkeypair -v -storetype PKCS12 -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000",
+    "bundle": "( cd android && gradlew bundleRelease ) && cd..",
+    "release": "npx react-native run-android --variant=release",
+    "exp": "start ."
+  },
+  "dependencies": {
+    "@react-navigation/native": "^6.0.11",
+    "@react-navigation/native-stack": "^6.7.0",
+    "haversine": "^1.1.1",
+    "react": "17.0.2",
+    "react-hook-form": "^7.33.1",
+    "react-native": "0.68.2",
+    "react-native-camera": "^4.2.1",
+    "react-native-geolocation-service": "^5.3.0",
+    "react-native-gesture-handler": "^2.5.0",
+    "react-native-mock-location-detector": "^2.0.0",
+    "react-native-reanimated": "^2.9.1",
+    "react-native-safe-area-context": "^4.3.1",
+    "react-native-screens": "^3.14.1",
+    "react-native-toast-notifications": "^3.3.0",
+    "realm": "^10.19.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/runtime": "^7.18.6",
+    "@react-native-community/eslint-config": "^3.0.3",
+    "babel-jest": "^28.1.2",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "eslint": "^8.19.0",
+    "jest": "^28.1.2",
+    "metro-react-native-babel-preset": "^0.71.2",
+    "react-test-renderer": "17.0.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
