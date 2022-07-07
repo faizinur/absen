@@ -1,5 +1,4 @@
 import { log } from '@Utils';
-import { watchPosition, clearWatch } from './Location';
 import haversine from 'haversine';
 const Fencing = {
     centerPoint: {
@@ -9,25 +8,20 @@ const Fencing = {
     polygon: [],
     init: (latitude = null, longitude = null, radius = 500) => {
         if (latitude != null && longitude != null) {
-            Fencing.polygon = Fencing.convert([parseFloat(latitude), parseFloat(longitude)], radius, 20);
+            Fencing.polygon = Fencing.convert([parseFloat(latitude), parseFloat(longitude)], radius);
             Fencing.centerPoint = { latitude, longitude, }
         }
     },
-    startMonitoring: async () => {
-        watchPosition(
-            ({ coords: { latitude, longitude } }) => {
-                let userInsideFence = Fencing.inside({ lat: latitude, lng: longitude }, Fencing.polygon);
-                if (!userInsideFence) {
-                    let offset = haversine(Fencing.centerPoint, { longitude, latitude }, { unit: 'meter' })
-                    global?.showToast(`anda berada ${offset} meter dari sekolah`, 2000, 'danger')
-                }
-            },
-            err => {
-                log(err)
-            }
-        )
+    startMonitoring: async ({ coords: { latitude, longitude } }, onBreakFence) => {
+        log('monitoring .... ')
+        let offset = haversine(Fencing.centerPoint, { latitude, longitude }, { unit: 'meter' })
+        onBreakFence(offset)
+        let userInsideFence = Fencing.inside({ lat: latitude, lng: longitude }, Fencing.polygon);
+        if (!userInsideFence) {
+            global?.showToast(`anda berada ${offset} meter dari sekolah`, 2000, 'danger')
+        }
     },
-    stopMonitoring: async () => clearWatch(),
+
     convert: (coordinate, radius, numberOfSegment = 360) => {
         let flatCoordinates = [];
         for (var i = 0; i < numberOfSegment; i++) {

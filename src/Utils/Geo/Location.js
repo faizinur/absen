@@ -2,7 +2,6 @@ import React from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import { log } from '@Utils';
-let WATCH_ID = null;
 
 const Geo = async () => {
     try {
@@ -32,26 +31,4 @@ const Geo = async () => {
         log(err);
     }
 };
-
-
-const watchPosition = (success, error) => {
-    try {
-        WATCH_ID = Geolocation.watchPosition(success, error,
-            {
-                enableHighAccuracy: true,
-                forceRequestLocation: true,
-            })
-    } catch (err) {
-        log('watchPosition ', err)
-    }
-}
-
-const clearWatch = () => {
-    Geolocation.clearWatch(WATCH_ID);
-    // Geolocation.stopObserving();
-}
-export {
-    watchPosition,
-    clearWatch,
-}
 export default Geo;

@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import { log, Fencing } from '@Utils'
+import React, { useCallback, useState } from "react";
+import { log, Fencing, CONSTANT } from '@Utils'
 import { PermissionsAndroid } from 'react-native';
 import RNMockLocationDetector from "react-native-mock-location-detector";
 
 export default () => {
     const [mocked, setMocked] = useState(false);
+    const [location, setLocation] = useState({});
+    const [distance, setDistance] = useState(0);
+
     const _appMount = async () => {
         try {
             log('_onMount : ')
@@ -21,23 +24,28 @@ export default () => {
         }
     }
 
-    const _homeMount = async () => {
+    const _initFencing = () => {
+        const latitude = -6.9125895;
+        const longitude = 107.6294408;
+        Fencing.init(latitude, longitude, CONSTANT.FENCING_RADIUS);
+    }
+
+    const _userFencing = useCallback(async userLocation => {
         try {
-            const latitude = -6.9125533;
-            const longitude = 107.6294967;
-            Fencing.init(latitude, longitude)
-            Fencing.startMonitoring();
+            setLocation(userLocation);
+            Fencing.startMonitoring(userLocation, setDistance);
         } catch (err) {
             log('_homeMount : ', err);
         }
-    }
-
-    const _homeUnmount = () => Fencing.stopMonitoring()
+    }, [location, distance])
 
     return {
         mocked,
+        location,
+        distance,
+        setLocation,
         _appMount,
-        _homeMount,
-        _homeUnmount,
+        _initFencing,
+        _userFencing,
     }
 }
