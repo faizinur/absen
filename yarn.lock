@@ -6049,11 +6049,6 @@ react-native-gradle-plugin@^0.0.6:
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.6.tgz#b61a9234ad2f61430937911003cddd7e15c72b45"
   integrity sha512-eIlgtsmDp1jLC24dRn43hB3kEcZVqx6DUQbR0N1ABXGnMEafm9I3V3dUUeD1vh+Dy5WqijSoEwLNUPLgu5zDMg==
 
-react-native-mock-location-detector@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-mock-location-detector/-/react-native-mock-location-detector-2.0.0.tgz#dc26d704f660e2f1f4d04ae999415e4ac6c551b5"
-  integrity sha512-WjxXQdHO6B/cZAlcqODJ3TLzhSb12NKmOv5GABelH3uTh436Sx+xOLO+OB+zSngSzdbNW5cjZd49uya08FYg1g==
-
 react-native-reanimated@^2.9.1:
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-2.9.1.tgz#d9a932e312c13c05b4f919e43ebbf76d996e0bc1"

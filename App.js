@@ -6,21 +6,16 @@
  * @flow strict-local
  */
 
-import React, { useEffect, useState, useRef, memo } from 'react';
+import React, { useEffect, useRef, memo } from 'react';
 import {
-	Text,
 	View,
 	StatusBar,
 } from 'react-native';
 import { log } from '@Utils';
-import { UseLocation } from '@ViewModel';
 import MainStackNavigator from './src/Container/Pages/index';
 import Toast from "react-native-toast-notifications";
 let TOAST_ID = null;
-
-
 export default memo((props) => {
-	const { mocked, _appMount } = UseLocation()
 	const refToast = useRef(<Toast />);
 	global.showToast = (message = 'Simple Toast', duration = 1500, type = 'normal', placement = 'bottom') => {
 		if (TOAST_ID != null) {
@@ -39,13 +34,11 @@ export default memo((props) => {
 	}
 	useEffect(() => {
 		log('MOUNT APP')
-		_appMount()
 		return () => {
 			log('UNMOUNT APP')
 		}
 	}, [])
 	return (
-		// mocked == false ?
 		<View style={{ flex: 1 }}>
 			<StatusBar
 				animated={true}
@@ -56,9 +49,5 @@ export default memo((props) => {
 			<MainStackNavigator />
 			<Toast ref={refToast} />
 		</View>
-		// :
-		// <View>
-		// 	<Text>DIHARAP TIDAK MENCURANGI SISTEM</Text>
-		// </View>
 	);
 });

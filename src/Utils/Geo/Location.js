@@ -3,7 +3,7 @@ import { PermissionsAndroid, Platform } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import { log } from '@Utils';
 
-const Geo = async () => {
+export default async () => {
     try {
         const permissionResult = await PermissionsAndroid.requestMultiple([
             PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -31,4 +31,3 @@ const Geo = async () => {
         log(err);
     }
 };
-export default Geo;

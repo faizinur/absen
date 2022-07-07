@@ -43,8 +43,7 @@ export default memo(forwardRef(({ location, onResult }, ref) => {
                         message: 'We need your permission to use your camera',
                         buttonPositive: 'Ok',
                         buttonNegative: 'Cancel',
-                    }}
-                >
+                    }}>
                     {({ camera, status }) => {
                         if (status !== 'READY') return <Text>Please Wait</Text>;
                         return (
