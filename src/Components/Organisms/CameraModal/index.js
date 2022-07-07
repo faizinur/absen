@@ -2,6 +2,7 @@ import { View, Modal, Text, Button } from 'react-native';
 import React, { useState, useCallback, forwardRef, useImperativeHandle, memo, useRef } from 'react';
 import { log } from '@Utils';
 import { RNCamera } from 'react-native-camera';
+import RNFS from 'react-native-fs';
 export default memo(forwardRef(({ location, onResult }, ref) => {
     const refCamera = useRef(<RNCamera />);
     const [modalVisible, setModalVisible] = useState(false);
@@ -15,7 +16,8 @@ export default memo(forwardRef(({ location, onResult }, ref) => {
     const _takePicture = async camera => {
         try {
             const { uri, base64 } = await camera.takePictureAsync({ quality: 1, base64: true });
-            onResult({ uri, base64 }, location)
+            RNFS.unlink(uri);
+            onResult({ base64 }, location)
             toggle()
         } catch (err) {
             log(err)
