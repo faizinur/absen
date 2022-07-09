@@ -1,15 +1,14 @@
 import React, { useCallback, useState } from "react";
+import { UseUserLocation } from '@Model';
 import { log, Fencing, Location, CONSTANT } from '@Utils';
-import { useDispatch, useSelector } from 'react-redux';
-import { setDistance, setLocation } from '@Redux';
+import { reset } from '@RootNavigation';
 export default () => {
-    const dispatch = useDispatch();
-    const location = useSelector(({ userCoords: { coords } }) => coords)
-    const distance = useSelector(({ userCoords: { distance } }) => distance)
+    const { userLocation$, userDistance$ } = UseUserLocation()
 
     const _getLocation = async () => {
-        let data = await Location();
-        dispatch(setLocation(data));
+        let locationData = await Location();
+        userLocation$.next(locationData);
+        setTimeout(() => reset('Home'), 1000)
     }
 
     const _initFencing = async () => {
@@ -20,16 +19,15 @@ export default () => {
 
     const _userFencing = async userLocation => {
         try {
-            dispatch(setLocation(userLocation));
-            Fencing.startMonitoring(userLocation, distance => dispatch(setDistance(distance)));
+            userLocation$.next(userLocation);
+            Fencing.startMonitoring(userLocation, distance => userDistance$.next(distance));
         } catch (err) {
             log('_userFencing : ', err);
         }
     }
 
     return {
-        location,
-        distance,
+        userLocation$,
         _getLocation,
         _initFencing,
         _userFencing,

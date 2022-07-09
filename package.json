@@ -19,6 +19,7 @@
     "@react-navigation/native-stack": "^6.7.0",
     "haversine": "^1.1.1",
     "moment": "^2.29.4",
+    "observable-hooks": "^4.2.0",
     "react": "17.0.2",
     "react-hook-form": "^7.33.1",
     "react-native": "0.68.2",
@@ -33,7 +34,8 @@
     "react-redux": "^8.0.2",
     "realm": "^10.19.4",
     "redux": "^4.2.0",
-    "redux-thunk": "^2.4.1"
+    "redux-thunk": "^2.4.1",
+    "rxjs": "^7.5.5"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",

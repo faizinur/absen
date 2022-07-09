@@ -33,7 +33,7 @@ export default memo(() => {
     }, [])
     return (
         <View style={{ flex: 1, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }}>
-            <Text>HOME {distance}</Text>
+            <Text>HOME {distance > 1000 ? `${Math.round(distance / 1000)} KM` : `${distance} M`}</Text>
             <Text numberOfLines={6}>{JSON.stringify({
                 latitude: location?.coords?.latitude || 0,
                 longitude: location?.coords?.longitude || 0,

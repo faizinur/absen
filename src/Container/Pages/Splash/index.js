@@ -3,10 +3,11 @@ import React, { useEffect } from 'react'
 import { log } from '@Utils';
 import { UseLocation } from '@ViewModel';
 export default ({ navigation: { replace } }) => {
-    const { _getLocation } = UseLocation();
+    const { _getLocation, userLocation$ } = UseLocation();
     useEffect(() => {
         log('MOUNT SPLASH');
-        _getLocation().then(() => setTimeout(() => replace('Home'), 2000))
+        _getLocation()
+        _getLocation();
         return () => {
             log('UNMOUNT SPLASH')
         }

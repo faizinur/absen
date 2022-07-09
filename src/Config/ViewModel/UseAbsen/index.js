@@ -22,7 +22,7 @@ export default () => {
                 },
             }
 
-            global.showToast(JSON.stringify(dataAbsen))
+            // global.showToast(JSON.stringify(dataAbsen))
 
             return Promise.resolve(true);
 
