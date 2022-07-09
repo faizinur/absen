@@ -1,9 +1,16 @@
-import React, { useCallback, useState } from "react";
-import { UseUserLocation } from '@Model';
+import React, { useCallback, useEffect, useState } from "react";
+import { UseLocationModel } from '@Model';
 import { log, Fencing, Location, CONSTANT } from '@Utils';
 import { reset } from '@RootNavigation';
+import { useObservableState } from "observable-hooks";
 export default () => {
-    const { userLocation$, userDistance$ } = UseUserLocation()
+    const [location, setLocation] = useState({});
+    const { userLocation$, userDistance$ } = UseLocationModel()
+
+    // kalau cara ini berhasil coba pindah import ke model dan useObservableState ke model, lalu albil dari  UseLocationModel
+    const observableLocation = useObservableState(userLocation$, {}) //state observable
+    const observableDistance = useObservableState(userDistance$, {}) //state observable
+
 
     const _getLocation = async () => {
         let locationData = await Location();
@@ -26,8 +33,16 @@ export default () => {
         }
     }
 
+    useEffect(() => {
+        const locationSubs = userLocation$.subscribe(setLocation) //cek perubahan cukup di subscribe atau tidak
+        return () => {
+            locationSubs.unsubscribe()
+        }
+    }, []);
     return {
-        userLocation$,
+        observableLocation,
+        observableDistance,
+        location,
         _getLocation,
         _initFencing,
         _userFencing,

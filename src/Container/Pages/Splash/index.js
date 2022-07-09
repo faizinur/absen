@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { log } from '@Utils';
 import { UseLocation } from '@ViewModel';
 export default ({ navigation: { replace } }) => {
-    const { _getLocation, userLocation$ } = UseLocation();
+    const { _getLocation, location, observableLocation } = UseLocation();
     useEffect(() => {
         log('MOUNT SPLASH');
         _getLocation()
@@ -15,6 +15,8 @@ export default ({ navigation: { replace } }) => {
     return (
         <View style={{ flex: 1, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }}>
             <Text>SPLASH</Text>
+            <Text>: location : {location}</Text>
+            <Text>: observableLocation : {observableLocation} </Text>
         </View>
     )
 }

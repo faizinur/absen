@@ -9,7 +9,7 @@ const AppContenxt = createContext({
     userDistance$,
 })
 
-export const UseUserLocation = () => useContext(AppContenxt);
+export const UseLocationModel = () => useContext(AppContenxt);
 
 export const AppContenxtProvider = ({ children }) => (
     <AppContenxt.Provider value={{ userLocation$, userDistance$ }}>
