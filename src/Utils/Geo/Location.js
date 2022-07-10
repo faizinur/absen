@@ -1,7 +1,7 @@
 import React from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
-import { log } from '@Utils';
+import { log, CONSTANT } from '@Utils';
 
 export default async () => {
     try {
@@ -31,3 +31,23 @@ export default async () => {
         log(err);
     }
 };
+
+let watchID = null;
+const watchPosition = (success, error) => {
+    try {
+        if (typeof success == 'function') {
+            watchID = Geolocation.watchPosition(success, error, CONSTANT.GEO_WATCH)
+            log('watch id ', watchID)
+        } else {
+            log('remove watchId', watchID)
+            Geolocation.clearWatch(watchID)
+        }
+    } catch (er) {
+
+    }
+}
+
+
+export {
+    watchPosition,
+}

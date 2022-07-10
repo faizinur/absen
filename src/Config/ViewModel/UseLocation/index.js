@@ -1,11 +1,10 @@
 import React from "react";
 import { Linking } from 'react-native'
 import { UseLocationModel } from '@Model';
-import { log, Fencing, Location, CONSTANT } from '@Utils';
+import { log, Fencing, Location, watchPosition, CONSTANT } from '@Utils';
 import { reset } from '@RootNavigation';
-import Geolocation from 'react-native-geolocation-service';
 import { useObservableState } from "observable-hooks";
-let watchID = null;
+
 export default () => {
     const { userLocation$, userDistance$ } = UseLocationModel()
 
@@ -18,12 +17,12 @@ export default () => {
         setTimeout(() => reset('Home'), 1000)
     }
 
-    const _removeFencing = async () => Geolocation.clearWatch(watchID);
+    const _removeFencing = async () => watchPosition(false)
 
-    const _starFencing = async () => {
+    const _startFencing = async () => {
         try {
             Fencing.init(CONSTANT.FENCING_CENTER_POINT, CONSTANT.FENCING_RADIUS);
-            watchID = Geolocation.watchPosition(coords => {
+            watchPosition(coords => {
                 userLocation$.next(coords);
                 Fencing.startMonitoring(coords, distance => userDistance$.next(distance));
             }, null, CONSTANT.GEO_WATCH)
@@ -47,7 +46,7 @@ export default () => {
         observableDistance,
         _getLocation,
         _removeFencing,
-        _starFencing,
+        _startFencing,
         onPressCoords,
     }
 }

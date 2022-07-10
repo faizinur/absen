@@ -5,7 +5,7 @@ import { UseLocation, UseAbsen } from '@ViewModel';
 import { CameraModal } from '@Organisms';
 
 export default memo(() => {
-    const { observableLocation, observableDistance, _starFencing, _removeFencing, onPressCoords } = UseLocation();
+    const { observableLocation, observableDistance, _startFencing, _removeFencing, onPressCoords } = UseLocation();
     const { _addAbsenMasuk } = UseAbsen();
     const refCameraModal = useRef(<CameraModal />)
     const _toggleCamera = () => refCameraModal.current?.toggle();
@@ -20,10 +20,10 @@ export default memo(() => {
     }
     useEffect(() => {
         log('MOUNT HOME');
-        _starFencing();
+        _startFencing();
         return () => {
-            _removeFencing();
             log('UNMOUNT HOME')
+            _removeFencing();
         }
     }, [])
     return (

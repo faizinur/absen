@@ -18,7 +18,7 @@ const Fencing = {
         onBreakFence(offset)
         let userInsideFence = Fencing.inside({ lat: latitude, lng: longitude }, Fencing.polygon);
         if (!userInsideFence) {
-            global?.showToast(`anda berada ${offset} meter dari sekolah`, 2000, 'danger')
+            // global?.showToast(`anda berada ${offset} meter dari sekolah`, 2000, 'danger')
         }
     },
 

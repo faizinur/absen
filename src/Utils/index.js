@@ -1,6 +1,6 @@
 
 import { log, info, warn } from './Consoles';
-import { Fencing, Location } from './Geo'
+import { Fencing, Location, watchPosition } from './Geo'
 import * as CONSTANT from './CONSTANT'
 export {
     log,
@@ -8,5 +8,6 @@ export {
     warn,
     Fencing,
     Location,
+    watchPosition,
     CONSTANT,
 }
