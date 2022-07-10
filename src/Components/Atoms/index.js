@@ -1,4 +1,4 @@
-import { MyToast } from './MyToast';
+import MyToast from './MyToast';
 
 export {
     MyToast,

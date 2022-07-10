@@ -5,7 +5,7 @@ export default memo((props) => {
     const refToast = useRef(<Toast />);
     global.showToast = (message = 'Simple Toast', duration = 1500, type = 'normal', placement = 'bottom') => {
         if (global.TOAST_ID != null) {
-            global.refToast.current.update(global.TOAST_ID, message, { type: 'warning', duration: duration + 3000 })
+            refToast.current.update(global.TOAST_ID, message, { type: 'warning', duration: duration + 3000 })
             global.TOAST_ID = null;
             return false;
         }

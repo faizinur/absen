@@ -6,7 +6,7 @@ const Fencing = {
         longitude: null,
     },
     polygon: [],
-    init: (latitude = null, longitude = null, radius = 500) => {
+    init: ({ latitude, longitude }, radius = 500) => {
         if (latitude != null && longitude != null) {
             Fencing.polygon = Fencing.convert([parseFloat(latitude), parseFloat(longitude)], radius);
             Fencing.centerPoint = { latitude, longitude, }

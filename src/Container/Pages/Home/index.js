@@ -33,17 +33,17 @@ export default memo(() => {
     }, [])
     return (
         <View style={{ flex: 1, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }}>
-            <Text>: location : {location}</Text>
-            <Text>: observableLocation : {observableLocation} </Text>
-            <Text>: observableDistance : {observableDistance} </Text>
-            {/* <Text>HOME {distance > 1000 ? `${Math.round(distance / 1000)} KM` : `${distance} M`}</Text>
+            <Text>HOME location : {JSON.stringify(location?.coords)}</Text>
+            <Text>Titik pusat : </Text>
+            <Text>Jarak ke titik pusat : {observableDistance > 1000 ? `${Math.round(observableDistance / 1000)} KM` : `${observableDistance} M`}</Text>
+
             <Text numberOfLines={6}>{JSON.stringify({
-                latitude: location?.coords?.latitude || 0,
-                longitude: location?.coords?.longitude || 0,
-                altitude: location?.coords?.altitude || 0,
+                latitude: observableLocation?.coords?.latitude || 0,
+                longitude: observableLocation?.coords?.longitude || 0,
+                altitude: observableLocation?.coords?.altitude || 0,
             }, null, 3)}</Text>
-            <Button title='camera' onPress={_toggleCamera} disabled={distance < CONSTANT.FENCING_RADIUS ? false : true} />
-            <CameraModal ref={refCameraModal} onResult={onAddAbsen} /> */}
+            <Button title='camera' onPress={_toggleCamera} disabled={observableDistance < CONSTANT.FENCING_RADIUS ? false : true} />
+            <CameraModal ref={refCameraModal} onResult={onAddAbsen} />
         </View>
     )
 })

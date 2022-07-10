@@ -7,9 +7,14 @@ const GEO_WATCH = {
     forceRequestLocation: true,
 }
 
+let FENCING_CENTER_POINT = {
+    latitude: -7.721492,
+    longitude: 108.4497791,
+}
 const FENCING_RADIUS = 5;
 
 export {
+    FENCING_CENTER_POINT,
     FENCING_RADIUS,
     GEO_WATCH,
 }

@@ -9,7 +9,7 @@ export default () => {
 
     // kalau cara ini berhasil coba pindah import ke model dan useObservableState ke model, lalu albil dari  UseLocationModel
     const observableLocation = useObservableState(userLocation$, {}) //state observable
-    const observableDistance = useObservableState(userDistance$, {}) //state observable
+    const observableDistance = useObservableState(userDistance$, 0) //state observable
 
 
     const _getLocation = async () => {
@@ -19,9 +19,7 @@ export default () => {
     }
 
     const _initFencing = async () => {
-        const latitude = -6.925591;
-        const longitude = 107.609926;
-        Fencing.init(latitude, longitude, CONSTANT.FENCING_RADIUS);
+        Fencing.init(CONSTANT.FENCING_CENTER_POINT, CONSTANT.FENCING_RADIUS);
     }
 
     const _userFencing = async userLocation => {
