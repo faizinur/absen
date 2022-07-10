@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React, { useEffect } from 'react'
-import { log } from '@Utils';
+import { log, RequestPermission } from '@Utils';
 import { UseLocation } from '@ViewModel';
 export default () => {
     const { _getLocation } = UseLocation();
     useEffect(() => {
         log('MOUNT SPLASH');
-        _getLocation()
+        RequestPermission().then(() => _getLocation());
         return () => {
             log('UNMOUNT SPLASH')
         }

@@ -1,5 +1,5 @@
 import Fencing from './Fencing';
-import Location, { watchPosition } from './Location';
+import { Location, watchPosition } from './Location';
 
 export {
     Fencing,
