@@ -1,16 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
+import { Linking } from 'react-native'
 import { UseLocationModel } from '@Model';
 import { log, Fencing, Location, CONSTANT } from '@Utils';
 import { reset } from '@RootNavigation';
+import Geolocation from 'react-native-geolocation-service';
 import { useObservableState } from "observable-hooks";
+let watchID = null;
 export default () => {
-    const [location, setLocation] = useState({});
     const { userLocation$, userDistance$ } = UseLocationModel()
 
-    // kalau cara ini berhasil coba pindah import ke model dan useObservableState ke model, lalu albil dari  UseLocationModel
-    const observableLocation = useObservableState(userLocation$, {}) //state observable
-    const observableDistance = useObservableState(userDistance$, 0) //state observable
-
+    const observableLocation = useObservableState(userLocation$, {})
+    const observableDistance = useObservableState(userDistance$, 0)
 
     const _getLocation = async () => {
         let locationData = await Location();
@@ -18,31 +18,36 @@ export default () => {
         setTimeout(() => reset('Home'), 1000)
     }
 
-    const _initFencing = async () => {
-        Fencing.init(CONSTANT.FENCING_CENTER_POINT, CONSTANT.FENCING_RADIUS);
-    }
+    const _removeFencing = async () => Geolocation.clearWatch(watchID);
 
-    const _userFencing = async userLocation => {
+    const _starFencing = async () => {
         try {
-            userLocation$.next(userLocation);
-            Fencing.startMonitoring(userLocation, distance => userDistance$.next(distance));
+            Fencing.init(CONSTANT.FENCING_CENTER_POINT, CONSTANT.FENCING_RADIUS);
+            watchID = Geolocation.watchPosition(coords => {
+                userLocation$.next(coords);
+                Fencing.startMonitoring(coords, distance => userDistance$.next(distance));
+            }, null, CONSTANT.GEO_WATCH)
         } catch (err) {
             log('_userFencing : ', err);
         }
     }
 
-    useEffect(() => {
-        const locationSubs = userLocation$.subscribe(setLocation) //cek perubahan cukup di subscribe atau tidak
-        return () => {
-            locationSubs.unsubscribe()
+    const onPressCoords = async ({ latitude, longitude }) => {
+        try {
+            const URL = `google.navigation:q=${latitude}+${longitude}`;
+            const supported = await Linking.openURL(URL);
+            if (!supported) throw `not supported`;
+            Linking.openURL(supported ? URL : browserURL)
+        } catch (err) {
+            global.showToast(`ini error linking ${err}`)
         }
-    }, []);
+    }
     return {
         observableLocation,
         observableDistance,
-        location,
         _getLocation,
-        _initFencing,
-        _userFencing,
+        _removeFencing,
+        _starFencing,
+        onPressCoords,
     }
 }

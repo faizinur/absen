@@ -2,12 +2,11 @@ import { View, Text } from 'react-native'
 import React, { useEffect } from 'react'
 import { log } from '@Utils';
 import { UseLocation } from '@ViewModel';
-export default ({ navigation: { replace } }) => {
-    const { _getLocation, location, observableLocation } = UseLocation();
+export default () => {
+    const { _getLocation } = UseLocation();
     useEffect(() => {
         log('MOUNT SPLASH');
         _getLocation()
-        _getLocation();
         return () => {
             log('UNMOUNT SPLASH')
         }

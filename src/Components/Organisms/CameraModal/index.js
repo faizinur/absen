@@ -1,9 +1,12 @@
 import { View, Modal, Text, Button } from 'react-native';
 import React, { useState, useCallback, forwardRef, useImperativeHandle, memo, useRef } from 'react';
-import { log } from '@Utils';
+import { log, CONSTANT } from '@Utils';
 import { RNCamera } from 'react-native-camera';
 import RNFS from 'react-native-fs';
+import { UseLocation } from '@ViewModel';
+
 export default memo(forwardRef(({ onResult }, ref) => {
+    const { observableDistance } = UseLocation();
     const refCamera = useRef(<RNCamera />);
     const [modalVisible, setModalVisible] = useState(false);
     useImperativeHandle(ref, () => ({
@@ -47,7 +50,7 @@ export default memo(forwardRef(({ onResult }, ref) => {
                         if (status !== 'READY') return <Text>Please Wait</Text>;
                         return (
                             <View style={{ width: '100%', height: 80, justifyContent: 'center', alignItems: 'center', position: 'absolute', bottom: 0, left: 0 }}>
-                                <Button title='foto' onPress={() => _takePicture(camera)} />
+                                <Button disabled={observableDistance <= CONSTANT.FENCING_RADIUS} title='foto' onPress={() => _takePicture(camera)} />
                             </View>
                         )
                     }}
