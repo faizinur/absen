@@ -14,7 +14,7 @@ import {
 import { log } from '@Utils';
 import MainStackNavigator from './src/Container/Pages/index';
 import { MyToast } from '@Atoms';
-import { AppContenxtProvider } from '@Model';
+
 export default memo((props) => {
 	useEffect(() => {
 		log('MOUNT APP')
@@ -23,17 +23,15 @@ export default memo((props) => {
 		}
 	}, [])
 	return (
-		<AppContenxtProvider>
-			<View style={{ flex: 1 }}>
-				<StatusBar
-					animated={true}
-					backgroundColor={'transparent'}
-					barStyle={'dark-content'}
-					showHideTransition={'fade'}
-					hidden={false} />
-				<MainStackNavigator />
-				<MyToast />
-			</View>
-		</AppContenxtProvider>
+		<View style={{ flex: 1 }}>
+			<StatusBar
+				animated={true}
+				backgroundColor={'transparent'}
+				barStyle={'dark-content'}
+				showHideTransition={'fade'}
+				hidden={false} />
+			<MainStackNavigator />
+			<MyToast />
+		</View>
 	);
 });

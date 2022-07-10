@@ -8,8 +8,8 @@ const GEO_WATCH = {
 }
 
 let FENCING_CENTER_POINT = {
-    latitude: -7.7235839,
-    longitude: 108.4497807,
+    latitude: -7.721389,
+    longitude: 108.449869,
 }
 const FENCING_RADIUS = 5;
 

@@ -6,14 +6,20 @@ export default () => {
     const { _getLocation } = UseLocation();
     useEffect(() => {
         log('MOUNT SPLASH');
-        RequestPermission().then(() => _getLocation());
+        RequestPermission()
+            .then(result => {
+                _getLocation()
+                log('RequestPermission : ', result)
+            })
+            .catch(e => {
+                global.showToast(e);
+                log('RequestPermission : ', e)
+            });
         return () => {
             log('UNMOUNT SPLASH')
         }
     }, [])
-    return (
-        <View style={{ flex: 1, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }}>
-            <Text>SPLASH</Text>
-        </View>
-    )
+    return (<View style={{ flex: 1, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }}>
+        <Text>SPLASH</Text>
+    </View>)
 }

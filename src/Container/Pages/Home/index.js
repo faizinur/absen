@@ -28,7 +28,7 @@ export default memo(() => {
     }, [])
     return (
         <View style={{ flex: 1, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }}>
-            {observableLocation.mocked == true && <Text>MOHON TIDAK MENCURANGI SISTEM</Text> ||
+            {observableLocation?.mocked == true && <Text>MOHON TIDAK MENCURANGI SISTEM</Text> ||
                 <View>
                     <Text>HOME</Text>
                     <Text onPress={() => onPressCoords(CONSTANT.FENCING_CENTER_POINT)}>Titik pusat : {JSON.stringify(CONSTANT.FENCING_CENTER_POINT)}</Text>

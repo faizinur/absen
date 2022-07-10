@@ -30,16 +30,13 @@ if (__DEV__) {
 import React from 'react';
 import { AppRegistry } from 'react-native';
 import App from './App';
-import { Provider as ReduxProvider } from 'react-redux';
-import { ConfigureStore } from '@Redux';
 import { name as appName } from './app.json';
-
-const store = ConfigureStore();
+import { AppContenxtProvider } from '@Model';
 
 const AppProvider = () => (
-    <ReduxProvider store={store}>
+    <AppContenxtProvider>
         <App />
-    </ReduxProvider>
+    </AppContenxtProvider>
 )
 
 
