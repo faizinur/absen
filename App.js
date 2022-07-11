@@ -14,6 +14,8 @@ import {
 import { log } from '@Utils';
 import MainStackNavigator from './src/Container/Pages/index';
 import { MyToast } from '@Atoms';
+import { enableLatestRenderer } from 'react-native-maps';
+enableLatestRenderer();
 
 export default memo((props) => {
 	useEffect(() => {

@@ -1,9 +1,9 @@
 import React from "react";
-import { Linking } from 'react-native'
 import { UseLocationModel } from '@Model';
 import { log, Fencing, Location, watchPosition, CONSTANT } from '@Utils';
 import { reset } from '@RootNavigation';
 import { useObservableState } from "observable-hooks";
+import { combineLatest, map, pipe, tap } from "rxjs";
 
 export default () => {
     const { userLocation$, userDistance$ } = UseLocationModel()
@@ -12,8 +12,8 @@ export default () => {
     const observableDistance = useObservableState(userDistance$, 0)
 
     const _getLocation = async () => {
-        let locationData = await Location();
-        userLocation$.next(locationData);
+        let coords = await Location();
+        userLocation$.next(coords);
         setTimeout(() => reset('Home'), 1000)
     }
 
@@ -31,22 +31,31 @@ export default () => {
         }
     }
 
-    const onPressCoords = async ({ latitude, longitude }) => {
-        try {
-            const URL = `google.navigation:q=${latitude}+${longitude}`;
-            const supported = await Linking.openURL(URL);
-            if (!supported) throw `not supported`;
-            Linking.openURL(supported ? URL : browserURL)
-        } catch (err) {
-            global.showToast(`ini error linking ${err}`)
-        }
+    const _updateDeirection = async ({ heading, zoom }) => {
+
+        userLocation$.pipe(
+            map(userLocation => ({
+                ...userLocation,
+                ...{
+                    coords: {
+                        ...userLocation.coords,
+                        heading
+                    }
+                }
+            })),
+            tap(userLocation => log(userLocation))
+        )
     }
+
+    const elemState = () => observableDistance < CONSTANT.FENCING_RADIUS ? false : true
+
     return {
         observableLocation,
         observableDistance,
         _getLocation,
+        _updateDeirection,
         _removeFencing,
         _startFencing,
-        onPressCoords,
+        elemState,
     }
 }

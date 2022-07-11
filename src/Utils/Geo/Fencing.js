@@ -13,7 +13,6 @@ const Fencing = {
         }
     },
     startMonitoring: async ({ coords: { latitude, longitude } }, onBreakFence) => {
-        log('monitoring .... ')
         let offset = haversine(Fencing.centerPoint, { latitude, longitude }, { unit: 'meter' })
         onBreakFence(offset)
         let userInsideFence = Fencing.inside({ lat: latitude, lng: longitude }, Fencing.polygon);

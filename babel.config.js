@@ -23,7 +23,6 @@ module.exports = {
           "@Molecules": "./src/Components/Molecules/",
           "@Organisms": "./src/Components/Organisms/",
           //config
-          "@Redux": "./src/Config/Redux/",
           "@Model": "./src/Config/Model/",
           "@ViewModel": "./src/Config/ViewModel/",
           "@RootNavigation": "./src/Config/RootNavigation/",

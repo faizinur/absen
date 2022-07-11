@@ -13,9 +13,6 @@
                 "./src/Components/Organisms/*"
             ],
             //config
-            "@Redux": [
-                "./src/Config/Redux/*"
-            ],
             "@Model": [
                 "./src/Config/Model/*"
             ],

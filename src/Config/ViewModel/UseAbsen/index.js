@@ -1,9 +1,14 @@
 import React, { useCallback, useState } from "react";
 import { log } from '@Utils'
 import moment from 'moment';
+import RNFS from 'react-native-fs';
+import { UseLocationModel } from '@Model';
 export default () => {
-    const _addAbsenMasuk = ({ base64 }, { coords: { latitude, longitude, altitude } }) => {
+    const { userLocation$ } = UseLocationModel()
+    const _addAbsenMasuk = async uri => {
+        let base64 = '';
         try {
+            base64 = await RNFS.readFile(uri, 'base64');
             let dataAbsen = {
                 nama: 'jhon',
                 nip: '098765432',
@@ -12,17 +17,15 @@ export default () => {
                     keluar: ''
                 },
                 foto: {
-                    masuk: 'base64',
+                    masuk: base64,
                     keluar: ''
                 },
                 geotaging: {
-                    latitude,
-                    longitude,
-                    altitude,
+                    latitude: userLocation$?.value?.coords?.latitude || 0,
+                    longitude: userLocation$?.value?.coords?.longitude || 0,
+                    altitude: userLocation$?.value?.coords?.altitude || 0,
                 },
             }
-
-            // global.showToast(JSON.stringify(dataAbsen))
 
             return Promise.resolve(true);
 
@@ -35,7 +38,13 @@ export default () => {
             // let buff = new Buffer(data, 'base64');
             // fs.writeFileSync('stack-abuse-logo-out.png', buff);
         } catch (err) {
-            return Promise.reject(err);
+            global.showToast(JSON.stringify(err))
+            return Promise.reject(false);
+        } finally {
+            log(`hapus foto ${uri}`)
+            base64 = '';
+            RNFS.unlink(uri);
+
         }
     }
     return {

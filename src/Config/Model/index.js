@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 const userLocation$ = new BehaviorSubject();
 const userDistance$ = new BehaviorSubject();
 
+
 const AppContenxt = createContext({
     userLocation$,
     userDistance$,

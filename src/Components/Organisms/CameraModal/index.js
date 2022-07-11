@@ -2,7 +2,6 @@ import { View, Modal, Text, Button } from 'react-native';
 import React, { useState, useCallback, forwardRef, useImperativeHandle, memo, useRef } from 'react';
 import { log, CONSTANT } from '@Utils';
 import { RNCamera } from 'react-native-camera';
-import RNFS from 'react-native-fs';
 import { UseLocation } from '@ViewModel';
 
 export default memo(forwardRef(({ onResult }, ref) => {
@@ -18,9 +17,8 @@ export default memo(forwardRef(({ onResult }, ref) => {
     }, [modalVisible])
     const _takePicture = async camera => {
         try {
-            const { uri, base64 } = await camera.takePictureAsync({ quality: 1, base64: true });
-            RNFS.unlink(uri);
-            onResult({ base64 })
+            const { uri } = await camera.takePictureAsync({ quality: 1, base64: false });
+            onResult(uri)
         } catch (err) {
             log(err)
             global?.showToast(`camera error : ${err}`, 10000, 'danger')
@@ -50,7 +48,7 @@ export default memo(forwardRef(({ onResult }, ref) => {
                         if (status !== 'READY') return <Text>Please Wait</Text>;
                         return (
                             <View style={{ width: '100%', height: 80, justifyContent: 'center', alignItems: 'center', position: 'absolute', bottom: 0, left: 0 }}>
-                                <Button disabled={observableDistance <= CONSTANT.FENCING_RADIUS} title='foto' onPress={() => _takePicture(camera)} />
+                                <Button disabled={observableDistance < CONSTANT.FENCING_RADIUS ? false : true} title='foto' onPress={() => _takePicture(camera)} />
                             </View>
                         )
                     }}
