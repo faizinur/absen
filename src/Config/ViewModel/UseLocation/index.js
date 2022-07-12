@@ -3,7 +3,7 @@ import { UseLocationModel } from '@Model';
 import { log, Fencing, Location, watchPosition, CONSTANT } from '@Utils';
 import { reset } from '@RootNavigation';
 import { useObservableState } from "observable-hooks";
-import { combineLatest, map, pipe, tap } from "rxjs";
+import { map, pipe, tap } from "rxjs/operators";
 
 export default () => {
     const { userLocation$, userDistance$ } = UseLocationModel()

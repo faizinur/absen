@@ -34,6 +34,7 @@
     "react-native-toast-notifications": "^3.3.0",
     "react-native-vector-icons": "^9.2.0",
     "realm": "^10.19.4",
+    "rx-react-container": "^0.9.0",
     "rxjs": "^7.5.5"
   },
   "devDependencies": {

@@ -1,8 +1,8 @@
 import React, { createContext, useContext } from 'react';
 import { BehaviorSubject } from 'rxjs';
 
-const userLocation$ = new BehaviorSubject();
-const userDistance$ = new BehaviorSubject();
+const userLocation$ = new BehaviorSubject({});
+const userDistance$ = new BehaviorSubject(0);
 
 
 const AppContenxt = createContext({

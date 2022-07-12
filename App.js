@@ -16,8 +16,8 @@ import MainStackNavigator from './src/Container/Pages/index';
 import { MyToast } from '@Atoms';
 import { enableLatestRenderer } from 'react-native-maps';
 enableLatestRenderer();
-
-export default memo((props) => {
+import { AppContextProvider } from '@Model';
+export default memo(() => {
 	useEffect(() => {
 		log('MOUNT APP')
 		return () => {
@@ -25,15 +25,17 @@ export default memo((props) => {
 		}
 	}, [])
 	return (
-		<View style={{ flex: 1 }}>
-			<StatusBar
-				animated={true}
-				backgroundColor={'transparent'}
-				barStyle={'dark-content'}
-				showHideTransition={'fade'}
-				hidden={false} />
-			<MainStackNavigator />
-			<MyToast />
-		</View>
+		<AppContextProvider>
+			<View style={{ flex: 1 }}>
+				<StatusBar
+					animated={true}
+					backgroundColor={'transparent'}
+					barStyle={'dark-content'}
+					showHideTransition={'fade'}
+					hidden={false} />
+				<MainStackNavigator />
+				<MyToast />
+			</View>
+		</AppContextProvider>
 	);
 });

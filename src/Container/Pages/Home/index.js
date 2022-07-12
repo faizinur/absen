@@ -7,10 +7,13 @@ import MapView, { Marker, Circle, PROVIDER_GOOGLE } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default memo(() => {
+
     const { observableLocation, observableDistance, _startFencing, _removeFencing, _updateDeirection, elemState } = UseLocation();
     const { _addAbsenMasuk } = UseAbsen();
+
     const refCameraModal = useRef(<CameraModal />)
     const refMapView = useRef(<MapView />)
+
     const _toggleCamera = () => refCameraModal.current?.toggle();
     const onAddAbsen = async (file) => {
         let absenResult = await _addAbsenMasuk(file);
@@ -33,7 +36,7 @@ export default memo(() => {
         }
     }
     useEffect(() => {
-        log('MOUNT HOME', CONSTANT.FENCING_RADIUS * 0.0001);
+        log('MOUNT HOME');
         _startFencing();
         return () => {
             log('UNMOUNT HOME')
@@ -85,7 +88,7 @@ export default memo(() => {
                 <View>
                     <Text style={{ width: '100%', fontWeight: '600', fontSize: 16 }} numberOfLines={1} ellipsizeMode={'tail'}>Fulan bin Fulan</Text>
                     <Text style={{ width: '100%' }} numberOfLines={1} ellipsizeMode={'tail'}>Titik pusat : {CONSTANT.FENCING_CENTER_POINT.latitude} , {CONSTANT.FENCING_CENTER_POINT.longitude}</Text>
-                    <Text style={{ width: '100%' }} numberOfLines={1} ellipsizeMode={'tail'}>Jarak ke titik pusat : {observableDistance > 1000 ? `${Math.round(parseInt(observableDistance) / 1000)} KM` : `${Math.round(observableDistance)} M`}</Text>
+                    <Text style={{ width: '100%' }} numberOfLines={1} ellipsizeMode={'tail'}>Jarak ke titik pusat : {observableDistance > 1000 ? `${Math.round(parseInt(observableDistance) / 1000 / 100)} KM` : `${Math.round(observableDistance)} M`}</Text>
                 </View>
 
 
