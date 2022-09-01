@@ -4,6 +4,10 @@ import { BehaviorSubject } from 'rxjs';
 const userLocation$ = new BehaviorSubject({});
 const userDistance$ = new BehaviorSubject(0);
 
+//masukking ke context
+const pipeUserLocation = () => {
+    userLocation$.pipe(() => { })
+}
 
 const AppContenxt = createContext({
     userLocation$,
